@@ -1,0 +1,45 @@
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8080"
+    volumes:
+      - ~/Documents/chatmix/logs:/app/logs
+    depends_on:
+      - mongo-chatmix   
+    networks:
+      - app-network
+    restart: always
+
+  mongo-chatmix:
+    image: mongo:latest
+    ports:
+      - "27020:27017"
+    env_file: ".env.mongodb"
+    volumes:
+      - mongodb_data_chatmix:/data/db
+    networks:
+      - app-network
+    restart: always
+    command: mongod --auth --bind_ip_all 
+
+volumes:
+  mongodb_data_chatmix:
+
+networks:
+  app-network:
+    driver: bridge
+
+
+# docker-compose down
+# docker-compose build --no-cache
+# docker-compose up -d
+# docker container ls
+# docker logs --follow 91b7386a6c6c
+
+# sudo ufw allow from 192.168.1.0/24 to any port 5001
+# sudo ufw allow from 172.17.0.0/16 to any port 5001
+# sudo ufw allow from 172.20.0.0/16 to any port 5001
+# sudo ufw status

@@ -1,0 +1,52 @@
+server:
+  host: "localhost"
+  port: 8080
+  read_timeout: 30s
+  write_timeout: 30s
+  cors:
+    allowed_origins: 
+      - "*"
+    allowed_methods:
+      - "GET"
+      - "POST" 
+      - "PUT"
+      - "DELETE"
+      - "OPTIONS"
+      - "PATCH"
+    allowed_headers:
+      - "*"
+    allow_credentials: true
+
+database:
+  uri: "mongodb://mongo-chatmix:27017"
+  name: "chatmix"
+  timeout: 10s
+  collections:
+    users: "users"
+    refresh_tokens: "refresh_tokens"
+    sessions: "sessions"
+    captchas: "captchas"
+
+websocket:
+  read_buffer_size: 1024
+  write_buffer_size: 1024
+  check_origin: true
+
+logging:
+  level: "info"  # debug, info, warn, error
+  format: "json" # json, text
+
+auth:
+  jwt_secret: "your-super-secret-jwt-key"
+  access_token_expiry: 24  # hours
+  refresh_token_expiry: 168  # hours (7 days)
+
+features:
+  max_username_length: 50
+  require_auth: true
+  captcha_enabled: true
+
+chat:
+  max_rooms: 10
+  queue_timeout: 300s  # seconds - how long to keep user in queue
+  room_cleanup_interval: 900s  # seconds - interval to cleanup room 1 user

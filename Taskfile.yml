@@ -1,0 +1,8 @@
+version: '3'
+
+dotenv: ['.envrc']
+
+tasks:
+  build:
+    cmds:
+      - go build -o bin/chatmix cmd/server/main.go
